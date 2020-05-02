@@ -34,6 +34,8 @@ public class Timescale : MonoBehaviour
         fScale = i_newScale;
     }
 
+    
+
     // Update is called once per frame
     void Update()
     {

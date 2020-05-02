@@ -41,7 +41,7 @@ public class UITimescaleHUD : MonoBehaviour
         if(timer != null)
         {
             currentTick.text= string.Format("Tick: {0}",  timer.GetTick().ToString());
-            currentScale.text= string.Format("Scale: {0}x", timer.GetScale().ToString());
+            currentScale.text= string.Format("Scale: {0}x", timer.GetScale().ToString("F2"));
         }
 
     }
