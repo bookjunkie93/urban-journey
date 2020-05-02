@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 656c2bb74d92e45b88502b8dd93df55e, type: 3}
   m_Name: Fast Reverse
   m_EditorClassIdentifier: 
-  HP: 0
-  sprites: []
-  decayRate: 0
-  reverseDecay: 0
+  HP: 20
+  decayRate: 3
+  reverseDecay: 1

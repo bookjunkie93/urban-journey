@@ -6,7 +6,6 @@ using UnityEngine;
 public class DecayableType : ScriptableObject
 {
     public float HP;
-    public Sprite[] sprites;
     public float decayRate;
     public bool reverseDecay;
 

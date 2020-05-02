@@ -8,6 +8,7 @@ public class Health : MonoBehaviour
     [SerializeField] float HP;
     [SerializeField] bool isDead;
     public UnityEvent onDeath;
+    public UnityEvent onTakeDamage;
     // Start is called before the first frame update
     void Start()
     {

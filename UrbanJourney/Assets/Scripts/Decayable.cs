@@ -21,16 +21,10 @@ public class Decayable : MonoBehaviour
         if(health != null)
         {
             health.Init(type.HP);
-            health.onDeath.AddListener(Break);
         }
     }
 
-    public void Break()
-    {
-        Debug.Log(string.Format("{0} Broke!", gameObject.name));
-        Destroy(this.gameObject);
-
-    }
+   
     // Update is called once per frame
     void Update()
     {
