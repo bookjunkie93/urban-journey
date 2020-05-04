@@ -9,7 +9,7 @@ using UnityEngine;
 public class Timescale : MonoBehaviour
 {
     [SerializeField] int nTick = 0;
-    [SerializeField] float fScale = 1f; //ticks/second
+    [Range(0.1f, 2f)][SerializeField] float fScale = 1f; //ticks/second
     float elapsedTime = 0;
 
 
@@ -31,7 +31,7 @@ public class Timescale : MonoBehaviour
 
     public void SetTickScale(float i_newScale)
     {
-        fScale = i_newScale;
+        fScale = Mathf.Clamp(i_newScale, 0.1f, 2f);
     }
 
     // Update is called once per frame

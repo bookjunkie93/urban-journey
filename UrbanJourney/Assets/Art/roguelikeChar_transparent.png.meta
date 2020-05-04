@@ -1,25 +1,10 @@
 fileFormatVersion: 2
-guid: 42afce04ede8543b6a96ed44ceb6bafb
+guid: 737e43189beb54eaaadaaa309f69cea5
 TextureImporter:
   internalIDToNameTable:
   - first:
       213: 21300000
-    second: puzzleAssets_square_red
-  - first:
-      213: 21300002
-    second: puzzleAssets_square_green
-  - first:
-      213: 21300004
-    second: puzzleAssets_square_blue
-  - first:
-      213: 21300006
-    second: puzzleAssets_square_yellow
-  - first:
-      213: 21300008
-    second: puzzleAssets_square_silver
-  - first:
-      213: 21300010
-    second: puzzleAssets_square_purple
+    second: roguelikeChar_1
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -141,118 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: puzzleAssets_square_red
+      name: roguelikeChar_1
       rect:
         serializedVersion: 2
-        x: 212
-        y: 247
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 71e76117857484c7db0558c70f33211d
-      internalID: 21300000
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: puzzleAssets_square_green
-      rect:
-        serializedVersion: 2
-        x: 212
-        y: 181
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7ba7bc621b6f54e0592e2968f2a50216
-      internalID: 21300002
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: puzzleAssets_square_blue
-      rect:
-        serializedVersion: 2
-        x: 212
-        y: 214
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c81dd3359413849bb9eefbc6da73e22f
-      internalID: 21300004
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: puzzleAssets_square_yellow
-      rect:
-        serializedVersion: 2
-        x: 212
-        y: 148
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 771fd4e41036d4df68492248fcf155f5
-      internalID: 21300006
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: puzzleAssets_square_silver
-      rect:
-        serializedVersion: 2
-        x: 212
-        y: 49
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 17e24935cb99841b585547bd5f633d7c
-      internalID: 21300008
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: puzzleAssets_square_purple
-      rect:
-        serializedVersion: 2
-        x: 212
-        y: 16
-        width: 32
-        height: 32
+        x: 0
+        y: 34
+        width: 16
+        height: 15
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -260,8 +140,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8189cac0dfa294b8b84525f13a1d677b
-      internalID: 21300010
+      spriteID: 395bece76c8f84252a7f9b25bb89072e
+      internalID: 21300000
       vertices: []
       indices: 
       edges: []
@@ -269,7 +149,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 1df0a3e611e18406080b08db44137332
+    spriteID: 40a712f6a15f84dc69811c22c568c326
     internalID: 0
     vertices: []
     indices: 

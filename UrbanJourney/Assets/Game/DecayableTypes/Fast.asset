@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 656c2bb74d92e45b88502b8dd93df55e, type: 3}
   m_Name: Fast
   m_EditorClassIdentifier: 
-  HP: 10
-  sprites: []
+  HP: 15
   decayRate: 3
   reverseDecay: 0
