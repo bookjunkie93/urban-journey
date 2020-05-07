@@ -38,7 +38,6 @@ public class Grabbable: MonoBehaviour
         transform.localPosition = new Vector3(xOffset, yOffset);
         gravityScale = m_rigidbody.gravityScale;
         m_rigidbody.gravityScale = 0;
-        m_rigidbody.constraints = grabbedConstraints;
         
 
     }
@@ -47,7 +46,6 @@ public class Grabbable: MonoBehaviour
     {
         isGrabbed = false;
         transform.SetParent(firstParent);
-        m_rigidbody.constraints = freeConstraints;
         m_rigidbody.gravityScale = gravityScale;
 
     }

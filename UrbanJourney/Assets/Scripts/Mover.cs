@@ -6,27 +6,27 @@ using UnityEngine.Events;
 //thanks to BoardToBits for the jump mechanic: https://www.youtube.com/watch?v=7KiK0Aqtmzc
 //And Brackeys for smooth horizontal movement: https://www.youtube.com/watch?v=dwcT-Dch0bA
 public class Mover : MonoBehaviour
-{
-    Vector3 m_moveDirection = Vector3.zero;
-    Rigidbody2D m_rigidBody;
-    Collider2D m_collider;
-    [Range(0, 10f)][SerializeField] float m_jumpSpeed = 1.5f;
-    [Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;  // How much to smooth out the movement
-    [SerializeField] float lowJumpMultiplier = 2f;
-    [SerializeField] float fallMultiplier = 2.5f;
-    [SerializeField] bool m_grounded;
-    [SerializeField] bool m_airControl;
-    [SerializeField] float groundOffset =0.01f;
-    [SerializeField] float groundedRayLength =0.1f;
-    [SerializeField] private LayerMask m_WhatIsGround;                          // A mask determining what is ground to the character
-    [SerializeField] Transform m_groundCheck;
-    [SerializeField] Transform m_ceilingCheck;
-    bool isJumping;
-    bool m_facingRight = true;
-    const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
-    private bool m_Grounded;            // Whether or not the player is grounded.
-    const float k_CeilingRadius = .2f; // Radius of the overlap circle to determine if the player can stand up
-    [SerializeField] UnityEvent onLandEvent;
+{    
+    protected Vector3 m_moveDirection = Vector3.zero;
+    protected Rigidbody2D m_rigidBody;
+    protected Collider2D m_collider;
+    [Range(0, 10f)][SerializeField] protected float m_jumpSpeed = 1.5f;
+    [Range(0, .3f)] [SerializeField] protected float m_MovementSmoothing = .05f;  // How much to smooth out the movement
+    [SerializeField] protected float lowJumpMultiplier = 2f;
+    [SerializeField] protected float fallMultiplier = 2.5f;
+    [SerializeField] protected bool m_grounded;
+    [SerializeField] protected bool m_airControl;
+    [SerializeField] protected float groundOffset =0.01f;
+    [SerializeField] protected float groundedRayLength =0.1f;
+    [SerializeField] protected private LayerMask m_WhatIsGround;                          // A mask determining what is ground to the character
+    [SerializeField] protected Transform m_groundCheck;
+    [SerializeField] protected Transform m_ceilingCheck;
+    protected bool isJumping;
+    protected bool m_facingRight = true;
+    protected const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
+    protected bool m_Grounded;            // Whether or not the player is grounded.
+    protected const float k_CeilingRadius = .2f; // Radius of the overlap circle to determine if the player can stand up
+    [SerializeField] protected UnityEvent onLandEvent;
 
       private void Awake()
     {
@@ -42,7 +42,7 @@ public class Mover : MonoBehaviour
     {
     }
 
-    public void Move(float move, bool jump)
+    public virtual void Move(float move, bool jump)
     {
         if(m_grounded || m_airControl)
         {
@@ -74,14 +74,13 @@ public class Mover : MonoBehaviour
     }
 
    
-    public void Jump()
+    public virtual void Jump()
     {
-        print("jumping");
         m_rigidBody.velocity += Vector2.up * m_jumpSpeed;
         isJumping = true;
     }
 
-    public void StopJump()
+    public virtual void StopJump()
     {
         isJumping = false;
     }
@@ -92,7 +91,7 @@ public class Mover : MonoBehaviour
 
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         bool wasGrounded = m_grounded;
         m_grounded = false;
@@ -119,7 +118,7 @@ public class Mover : MonoBehaviour
         }
     }
 
-    private void Flip()
+    protected virtual void Flip()
     {
         // Switch the way the player is labelled as facing.
         m_facingRight = !m_facingRight;

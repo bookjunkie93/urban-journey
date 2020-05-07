@@ -6,6 +6,8 @@ public class Spawner : MonoBehaviour
 {
     [SerializeField] GameObject prefab;
     [SerializeField] float cooldown = 5f;
+    [SerializeField] bool useTicks;
+    [SerializeField] bool touchTrigger;
     Timescale timer;
     GameObject instance;
     float lastTick;
@@ -20,9 +22,46 @@ public class Spawner : MonoBehaviour
     {
         if(instance == null)
         {
-            instance = Instantiate(prefab, transform) as GameObject;
+            Spawn();
         }
-        
+
+    }
+
+    private void Spawn()
+    {
+        instance = Instantiate(prefab, transform) as GameObject;
+        if (touchTrigger)
+        {
+            Decayable dec = instance.GetComponent<Decayable>();
+            if (dec != null)
+            {
+                dec.touchTrigger = true;
+            }
+        }
+    }
+
+    void updateTicks()
+	{
+        if (lastTick < timer.GetTick())
+        {
+            timeElapsed++;
+        }
+        if (timeElapsed >= cooldown)
+        {
+            timeElapsed = 0;
+            Spawn();
+        }
+        lastTick = timer.GetTick();
+    }
+
+    void updateTime()
+	{
+        timeElapsed += Time.deltaTime;
+        if (timeElapsed >= cooldown)
+        {
+            timeElapsed = 0;
+            Spawn();
+        }
     }
 
     // Update is called once per frame
@@ -30,16 +69,15 @@ public class Spawner : MonoBehaviour
     {
         if(instance == null)
         {
-            if(lastTick < timer.GetTick())
-            {
-                timeElapsed++;
-            }
-            if(timeElapsed >= cooldown)
-            {
-                timeElapsed = 0;
-                instance = Instantiate(prefab, transform) as GameObject;
-            }
-            lastTick = timer.GetTick();
+            if(useTicks)
+			{
+                updateTicks();   
+			}
+			else
+			{
+                updateTime();   
+			}
+            
         }
         
     }
