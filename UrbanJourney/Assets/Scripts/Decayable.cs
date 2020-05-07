@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof (Health))]
 public class Decayable : MonoBehaviour
 {
     Timescale timer;
     Health health;
     [SerializeField] DecayableType type;
+    public bool touchTrigger;
     int lastTick;
+    bool decayStarted;
 
 
     void Awake()
@@ -24,10 +27,18 @@ public class Decayable : MonoBehaviour
         }
     }
 
-   
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(touchTrigger && collision.gameObject.tag.Equals("Player"))
+        {
+            decayStarted = true;
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
+        if(touchTrigger && !decayStarted) {return;}
         if(timer != null)
         {
             if(timer.GetTick() > lastTick)
