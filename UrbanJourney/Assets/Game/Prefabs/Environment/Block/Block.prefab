@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 3454248908099277519}
   - component: {fileID: 4729618832488277577}
   - component: {fileID: 1931118498345668867}
+  - component: {fileID: -8243357751711465390}
   m_Layer: 0
   m_Name: Block
   m_TagString: Untagged
@@ -136,7 +137,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7149790688346058661}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f6fd591f43f74b04a6c5c97e52d704a, type: 3}
+  m_Script: {fileID: 11500000, guid: e8f1b9a44b8a74e7d936b25936462728, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &714419172100311888
@@ -174,7 +175,18 @@ MonoBehaviour:
   isDead: 0
   onDeath:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1890732782257692248}
+        m_MethodName: Break
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onTakeDamage:
     m_PersistentCalls:
       m_Calls: []
@@ -207,9 +219,38 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 2.5
+  m_GravityScale: 2
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 5
+  m_Constraints: 4
+--- !u!114 &-8243357751711465390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7149790688346058661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d4b43875a23f47798a5560cc896b97f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_jumpSpeed: 1.5
+  m_MovementSmoothing: 0.05
+  lowJumpMultiplier: 2
+  fallMultiplier: 1
+  m_grounded: 0
+  m_airControl: 0
+  groundOffset: 0.01
+  groundedRayLength: 0.1
+  m_WhatIsGround:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_groundCheck: {fileID: 4418369497574587846}
+  m_ceilingCheck: {fileID: 4418369497574587846}
+  onLandEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  timescaleModifier: 1
