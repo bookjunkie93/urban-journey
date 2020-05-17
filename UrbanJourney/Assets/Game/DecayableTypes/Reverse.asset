@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Reverse
   m_EditorClassIdentifier: 
   HP: 10
-  decayRate: 2
+  decayRate: 0.5
   reverseDecay: 1

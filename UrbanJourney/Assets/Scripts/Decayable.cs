@@ -8,7 +8,8 @@ public class Decayable : MonoBehaviour
     Timescale timer;
     Health health;
     [SerializeField] DecayableType type;
-    public bool touchTrigger;
+    public bool triggerOnTouch;
+    [SerializeField]Collider2D touchTrigger;
     int lastTick;
     bool decayStarted;
 
@@ -17,6 +18,10 @@ public class Decayable : MonoBehaviour
     {
         timer = GameObject.FindObjectOfType<Timescale>();
         health = GetComponent<Health>();
+        if(touchTrigger == null)
+        {
+            touchTrigger = GetComponent<Collider2D>();
+        }
     }
     // Start is called before the first frame update
     void Start()
@@ -27,9 +32,12 @@ public class Decayable : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    /// <summary>
+    /// If decay is not continuous for this object, trigger it
+    /// </summary>
+    public void TriggerDecay()
     {
-        if(touchTrigger && collision.gameObject.tag.Equals("Player"))
+        if(triggerOnTouch)
         {
             decayStarted = true;
         }
@@ -38,7 +46,7 @@ public class Decayable : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(touchTrigger && !decayStarted) {return;}
+        if(triggerOnTouch && !decayStarted) {return;}
         if(timer != null)
         {
             if(timer.GetTick() > lastTick)

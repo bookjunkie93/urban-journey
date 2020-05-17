@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TimsecaleMover : Mover
+public class TimescaleMover : Mover
 {
     Timescale timer;
     float lastTick;
@@ -67,8 +67,9 @@ public class TimsecaleMover : Mover
         }
         if(!m_grounded) {m_rigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;}
         if (m_rigidBody.velocity != Vector2.zero) //whenever there is motion, update it according to the current timescale
-        {            
-            m_rigidBody.velocity += m_rigidBody.velocity * Physics2D.gravity * (Time.fixedDeltaTime / timer.GetScale());
+        {
+            Vector2 xDampedVelocity= new Vector2 (m_rigidBody.velocity.x/4, m_rigidBody.velocity.y);
+            m_rigidBody.velocity += xDampedVelocity * Physics2D.gravity * (Time.fixedDeltaTime / timer.GetScale());
         }
         if(m_rigidBody.rotation != 0)
         {

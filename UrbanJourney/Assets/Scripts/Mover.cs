@@ -7,7 +7,7 @@ using UnityEngine.Events;
 //And Brackeys for smooth horizontal movement: https://www.youtube.com/watch?v=dwcT-Dch0bA
 public class Mover : MonoBehaviour
 {    
-    protected Vector3 m_moveDirection = Vector3.zero;
+    protected Vector2 m_moveDirection = Vector2.zero;
     protected Rigidbody2D m_rigidBody;
     protected Collider2D m_collider;
     [Range(0, 10f)][SerializeField] protected float m_jumpSpeed = 1.5f;
@@ -27,8 +27,10 @@ public class Mover : MonoBehaviour
     protected bool m_Grounded;            // Whether or not the player is grounded.
     protected const float k_CeilingRadius = .2f; // Radius of the overlap circle to determine if the player can stand up
     [SerializeField] protected UnityEvent onLandEvent;
+    private Rigidbody2D surfaceBody;
+    private bool applySurfaceMotion;
 
-      private void Awake()
+    private void Awake()
     {
         m_rigidBody = GetComponent<Rigidbody2D>();
         m_collider = GetComponent<Collider2D>();
@@ -47,9 +49,9 @@ public class Mover : MonoBehaviour
         if(m_grounded || m_airControl)
         {
             // Move the character by finding the target velocity
-            Vector3 targetVelocity = new Vector2(move * 10f, m_rigidBody.velocity.y);
+            Vector3 targetVelocity = new Vector2(move*10f, m_rigidBody.velocity.y);
             // And then smoothing it out and applying it to the character
-            m_rigidBody.velocity = Vector3.SmoothDamp(m_rigidBody.velocity, targetVelocity, ref m_moveDirection, m_MovementSmoothing);
+            m_rigidBody.velocity = Vector2.SmoothDamp(m_rigidBody.velocity, targetVelocity, ref m_moveDirection, m_MovementSmoothing);
 
             // If the input is moving the player right and the player is facing left...
             if (move > 0 && !m_facingRight)
@@ -73,7 +75,23 @@ public class Mover : MonoBehaviour
         }    
     }
 
-   
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag.Equals("MovingSurface"))
+        {
+            surfaceBody = collision.gameObject.GetComponent<Rigidbody2D>();
+            applySurfaceMotion = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag.Equals("MovingSurface"))
+        {
+            applySurfaceMotion = false;
+        }
+    }
+
     public virtual void Jump()
     {
         m_rigidBody.velocity += Vector2.up * m_jumpSpeed;
@@ -107,6 +125,11 @@ public class Mover : MonoBehaviour
                 if (!wasGrounded)
                     onLandEvent.Invoke();
             }
+        }
+        if(applySurfaceMotion)
+        {
+            print(string.Format("platform velocity: {0}",surfaceBody.velocity));
+            m_rigidBody.velocity += surfaceBody.velocity;
         }
         if (m_rigidBody.velocity.y < 0)
         {

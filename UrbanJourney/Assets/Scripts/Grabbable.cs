@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Events;
 
 public class Grabbable: MonoBehaviour
 {
     [SerializeField] float xOffset= 0;
     [SerializeField] float yOffset= 0.5f;
+    public UnityEvent onGrab;
+    public UnityEvent onRelease;
     Rigidbody2D m_rigidbody;
     Transform firstParent;
     RigidbodyConstraints2D grabbedConstraints = RigidbodyConstraints2D.FreezeRotation;
@@ -38,16 +41,16 @@ public class Grabbable: MonoBehaviour
         transform.localPosition = new Vector3(xOffset, yOffset);
         gravityScale = m_rigidbody.gravityScale;
         m_rigidbody.gravityScale = 0;
-        
-
+        onGrab.Invoke();
     }
 
     public void Drop()
     {
         isGrabbed = false;
         transform.SetParent(firstParent);
+        transform.position -= new Vector3(0f,0f,transform.position.z); //make sure the position is always 0
         m_rigidbody.gravityScale = gravityScale;
-
+        onRelease.Invoke();
     }
 
 

@@ -14,6 +14,7 @@ public class PlayerController : EntityController
     Mover mover;
     private float horizontalMove;
     bool jump;
+    bool inputSuspended;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +34,10 @@ public class PlayerController : EntityController
         }
     }
 
+    public void SetInput(bool isSuspended)
+    {
+        inputSuspended = isSuspended;
+    }
     public GameObject FindGrabbableObject()
     {
         RaycastHit2D hit = Physics2D.Raycast(grabSlot.position, grabSlot.right, grabDistance);
@@ -68,6 +73,7 @@ public class PlayerController : EntityController
     // Update is called once per frame
     void Update()
     {
+        if (inputSuspended) { return; }
         horizontalMove = Input.GetAxisRaw("Horizontal") * m_runSpeed;
         if (Input.GetButtonDown("Jump"))
         {
@@ -87,6 +93,7 @@ public class PlayerController : EntityController
                 grabCommand.Execute(this, FindGrabbableObject());
             }
         }
+        
 
         if(Input.GetKeyUp(grab))
         {
@@ -96,7 +103,9 @@ public class PlayerController : EntityController
 
     private void FixedUpdate()
     {
+        
         mover.Move(horizontalMove * Time.deltaTime, jump);
         jump = false;
+        
     }
 }

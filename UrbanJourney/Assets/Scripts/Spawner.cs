@@ -5,38 +5,71 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     [SerializeField] GameObject prefab;
+    [SerializeField] List<GameObject> prefabs;
     [SerializeField] float cooldown = 5f;
     [SerializeField] bool useTicks;
     [SerializeField] bool touchTrigger;
+    [SerializeField] List<TriggerMass> triggerMasses;
     Timescale timer;
     GameObject instance;
+    [SerializeField] List<GameObject> instances;
     float lastTick;
     float timeElapsed =0;
 
     void Awake()
     {
         timer = GameObject.FindObjectOfType<Timescale>();
+        instances = new List<GameObject>();
     }
     // Start is called before the first frame update
     void Start()
     {
-        if(instance == null)
-        {
-            Spawn();
-        }
-
+        Spawn();
     }
 
     private void Spawn()
     {
-        instance = Instantiate(prefab, transform) as GameObject;
-        if (touchTrigger)
+        if ((instance == null) && (prefab != null))
         {
-            Decayable dec = instance.GetComponent<Decayable>();
-            if (dec != null)
+            instance = SpawnSingle(prefab);
+        }
+        else if (instances.Count == 0 && prefabs != null)
+        {
+            SpawnMultiple();
+        }
+    }
+
+    private GameObject SpawnSingle(GameObject i_prefab)
+    {
+        GameObject newInstance = Instantiate(i_prefab, transform) as GameObject;
+        Decayable dec = newInstance.GetComponent<Decayable>();
+        if (dec != null)
+        {
+            if (touchTrigger)
             {
-                dec.touchTrigger = true;
+                dec.triggerOnTouch = true;
+                if(triggerMasses != null)
+                {
+                    foreach (TriggerMass mass in triggerMasses)
+                    {
+                        mass.onTrigger.AddListener(dec.TriggerDecay);
+                    }
+                }
+                    
             }
+            else
+            {
+                dec.triggerOnTouch = false;
+            }            
+        }
+        return newInstance;
+    }
+
+    void SpawnMultiple()
+    {
+        foreach (GameObject nextPrefab in prefabs)
+        {
+            instances.Add(SpawnSingle(nextPrefab));
         }
     }
 
@@ -64,10 +97,15 @@ public class Spawner : MonoBehaviour
         }
     }
 
+    void pruneList()
+    {
+        instances.RemoveAll(item => item == null);
+    }
     // Update is called once per frame
     void Update()
     {
-        if(instance == null)
+        pruneList();
+        if(instance == null && (instances == null ||instances.Count == 0))
         {
             if(useTicks)
 			{
